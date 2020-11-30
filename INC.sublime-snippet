@@ -1,0 +1,22 @@
+<snippet>
+	<description>Header</description>
+	<content><![CDATA[
+#include<bits/stdc++.h>
+
+#define int long long
+#define jk(i,j,k) for(int i=(j);i<=(k);i++)
+
+int rd(){int da=0;register char ch=0,w=1;while(ch!='-'&&(ch>'9'||ch<'0'))ch=getchar();(ch=='-')&&(w=-1,ch=getchar());while(ch>='0'&&ch<='9'){da=da*10+ch-'0';ch=getchar();}return da*w;}
+void P(int v){if(v<0){putchar('-');v=-v;}if(v>9)P(v/10);putchar(v%10+'0');}
+
+int n;
+
+signed main(){
+	${1:n=rd();}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>INC</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

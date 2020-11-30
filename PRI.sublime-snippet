@@ -1,0 +1,13 @@
+<snippet>
+	<description>线性筛</description>
+	<content><![CDATA[
+#define M 10000000
+int c,pr[M>>1];bool V[M+5];
+void PR(){jk(i,2,M){if(!V[i])pr[++c]=i;for(int j=1;j<=c&&pr[j]*i<=M;j++){V[pr[j]*i]=1;if(i%pr[j]==0)break;}}}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>PRI</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

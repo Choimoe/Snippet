@@ -1,0 +1,21 @@
+<snippet>
+	<description>拓展中国剩余定理</description>
+	<content><![CDATA[
+int ex(int a,int b,int &x,int &y){if(!b){x=1,y=0;return a;}int r=ex(b,a%b,y,x);y-=(a/b)*x;return r;}
+
+int exc(int *a,int *b){
+	// x_i === a_i (mod b_i)
+	int r=a[1],x,y;m=b[1];
+	jk(i,2,n){
+		int g=ex(m,b[i],x,y);
+		if((r-a[i])%g)return -1;
+		x=(r-a[i])/g*x%b[i];r-=m*x;m=m/g*b[i];r%=m;
+	}
+	return (r+m)%m;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>CRT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

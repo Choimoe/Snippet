@@ -1,0 +1,19 @@
+<snippet>
+	<description>a^x=b(mod M)</description>
+	<content><![CDATA[
+ll pw(ll b,ll k,ll M){ll R=1;while(k){if(k&1)R=(R*b)%M;b=(b*b)%M,k>>=1;}return R;}
+
+// a^x===b(mod M)
+ll BSGS(ll a,ll b,ll M){
+	if(a%M==0)return -1;if(b%M==1)return 0;
+	a%=M,b%=M;ll q=ceil(sqrt(M));std::unordered_map<ll,ll>H;
+	for(ll i=0,t=b;i<=q;i++,t=(t*a)%M)H[t]=i;
+	for(ll i=1,f=pw(a,q,M),t=f;i<=q;i++,t=(t*f)%M)if(H.count(t))return i*q-H[t];
+	return -1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BSGS</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,12 @@
+<snippet>
+	<description>枚举出边</description>
+	<content><![CDATA[
+for(int i=h[u];i;i=e[i].n){
+	${1:int v=e[i].v;}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>FE</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

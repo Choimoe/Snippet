@@ -1,0 +1,38 @@
+<snippet>
+	<description>树剖求LCA</description>
+	<content><![CDATA[
+int fa[N],sz[N],de[N],tp[N],sn[N];
+
+void df(int u,int f){
+	de[u]=de[f]+1;sz[u]=1;fa[u]=f;
+	for(int i=h[u];i;i=e[i].n){
+		int v=e[i].v;
+		if(v==f)continue;
+		df(v,u);
+		sz[u]+=sz[v];
+		if(sz[v]>sz[sn[u]])sn[u]=v;
+	}
+}
+
+void dfs(int u,int T){
+	tp[u]=T;
+	if(sn[u])dfs(sn[u],T);
+	for(int i=h[u];i;i=e[i].n){
+		int v=e[i].v;
+		if(v^sn[u]&&v^fa[u])dfs(v,v);
+	}
+}
+
+int lca(int u,int v){
+	while(tp[u]^tp[v]){
+		if(de[tp[u]]<de[tp[v]])std::swap(u,v);
+		u=fa[tp[u]];
+	}
+	return de[u]<de[v]?u:v;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LCA</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

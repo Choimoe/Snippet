@@ -1,0 +1,19 @@
+<snippet>
+	<description>求所有质因子</description>
+	<content><![CDATA[
+int PR[10]={2,3,5,7,11,13,17,19,23,61};ll Pr[100];int Pc;inline ll G(ll a,ll b){return b?G(b,a%b):a;}
+#define M(a,b,P) (((a)*(b)-(ll)(((long double)(a)*(b))/P+.5)*P+P)%P)
+inline ll fxp(ll s,ll n,ll P){ll a=1;for(;n;n&1?a=M(a,s,P):0,s=M(s,s,P),n>>=1);return a;}
+bool MRP(ll n){if(!(n&1)||n<2)return n==2;static ll j,r,y;for(r=~-n;!(r&1);r>>=1);for(int i = 0; i < 10; i++){if(n==PR[i])return true;if(!(n%PR[i]))return false;for(y=fxp(PR[i],j=r,n);j<~-n&&1<y&&y<~-n;y=M(y,y,n),j<<=1);if(!(y==~-n||j&1))return false;}return true;}
+ll Rho(ll n){static ll x,y;x=rand()%(n-1)+1,y=M(x,x,n)+1;do{x=M(x,x,n)+1,y=M(y,y,n)+1,y=M(y,y,n)+1;}while(G(x-y+n,n)<2);return G(x-y+n,n);}
+void Fac(ll n,ll d=0){n>1?n&1?!MRP(n)?d=Rho(n),Fac(d),Fac(n/d),0:Pr[++Pc]=n:(Fac(n>>1),Pr[++Pc]=2):0;}
+// run Fac(n) to get Pr[1...Pc]
+// srand() in main()
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<!-- <tabTrigger>FAC</tabTrigger> -->
+	<!-- <tabTrigger>RHO</tabTrigger> -->
+	<tabTrigger>MIL</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

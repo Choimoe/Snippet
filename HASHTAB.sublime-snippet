@@ -1,0 +1,13 @@
+<snippet>
+	<description>哈希表</description>
+	<content><![CDATA[
+const int N=1e5+5,M=20050201;
+struct E{int v,n,w;}e[M>>2];int h[M],c;
+void ad(int x){for(int i=h[x%M];i;i=e[i].n)if(e[i].v==x){e[i].w++;return;}e[++c]=(E){x,h[x%M],1};h[x%M]=c;}
+int query(int x){for(int i=h[x%M];i;i=e[i].n)if(e[i].v==x)return e[i].w;return 0;}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>HASHTAB</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

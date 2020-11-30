@@ -1,0 +1,14 @@
+<snippet>
+	<description>单点修改+前缀和</description>
+	<content><![CDATA[
+struct BIT{
+	int t[N];
+	void ad(int x,int d){for(;x<=n;x+=lo(x))t[x]+=d;}
+	int qu(int x){int r=0;for(;x>=1;x-=lo(x))r+=t[x];return r;}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>BIT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

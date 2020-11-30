@@ -1,0 +1,26 @@
+<snippet>
+	<description>Tarjan</description>
+	<content><![CDATA[
+int dfn[N],low[N],s[N],st,dt;
+
+void tar(int u){
+	dfn[u]=low[u]=++dt;s[++st]=u;
+	for(int i=h[u],x;i;i=e[i].n){
+		int v=e[i].v;
+		if(!dfn[v]){
+			tar(v);
+			low[u]=std::min(low[u],low[v]);
+			if(low[v]>=dfn[u]){
+				sct++;
+				do x=s[st--],${1:/*Code*/};
+				while(x^v);
+			}
+		}else low[u]=std::min(low[u],dfn[v]);
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>TAR</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -1,0 +1,42 @@
+<snippet>
+	<description>区间加区间求和</description>
+	<content><![CDATA[
+#define N 1000005
+
+struct Se{
+	struct No{int lc,rc,sm,tg;}t[N*2];int c;
+#define lc t[o].lc
+#define rc t[o].rc
+	void up(int o){t[o].sm=t[lc].sm+t[rc].sm;}
+	void dow(int o,int l,int r,int mi){
+		t[lc].sm+=t[o].tg*(mi-l+1);t[rc].sm+=t[o].tg*(r-mi);
+		t[lc].tg+=t[o].tg;t[rc].tg+=t[o].tg;t[o].tg=0;
+	}
+	void ins(int&o,int l,int r,int x,int d){
+		if(!o)o=++c;if(x>r||x<l)return;
+		if(l==r){t[o].sm+=d;return;}
+		int mi=(l+r)>>1;
+		ins(lc,l,mi,x,d);ins(rc,mi+1,r,x,d);up(o);
+	}
+	void mod(int&o,int l,int r,int L,int R,int d){
+		if(!o)o=++c;if(L>r||R<l)return;
+		if(L<=l&&r<=R){t[o].tg+=d;t[o].sm+=d*(r-l+1);return;}
+		int mi=(l+r)>>1;dow(o,l,r,mi);
+		mod(lc,l,mi,L,R,d);mod(rc,mi+1,r,L,R,d);up(o);
+	}
+	int que(int o,int l,int r,int L,int R){
+		if(L>r||R<l)return 0;
+		if(L<=l&&r<=R)return t[o].sm;
+		int mi=(l+r)>>1;dow(o,l,r,mi);
+		mi=que(lc,l,mi,L,R)+que(rc,mi+1,r,L,R);
+		return mi;
+	}
+}s;
+
+int rt;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>SEG</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

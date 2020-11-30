@@ -1,0 +1,16 @@
+<snippet>
+	<description>前向星存图</description>
+	<content><![CDATA[
+#define N 100010
+#define M 200010
+
+struct E{int n,v;}e[M];
+int h[N],c;
+
+void ad(int u,int v){e[++c]=(E){h[u],v},h[u]=c;}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>ED</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

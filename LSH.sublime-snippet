@@ -1,0 +1,13 @@
+<snippet>
+	<description>离散化+去重</description>
+	<content><![CDATA[
+	jk(i,1,n)b[i]=a[i];
+	std::sort(b+1,b+n+1);
+	int k=std::unique(b+1,b+n+1)-(b+1);
+	jk(i,1,n)a[i]=std::lower_bound(b+1,b+k+1,a[i])-b;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LSH</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
