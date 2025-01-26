@@ -1,0 +1,109 @@
+{
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "XXX": {
+	// 	"prefix": "",
+	// 	"body": "",
+	// 	"description": ""
+	// },
+	"单点修改+前缀和": {
+		"prefix": "BIT",
+		"body": "struct BIT{\n\tint t[N];\n\tvoid ad(int x,int d){for(;x<=n;x+=lo(x))t[x]+=d;}\n\tint qu(int x){int r=0;for(;x>=1;x-=lo(x))r+=t[x];return r;}\n};",
+		"description": "树状数组"
+	},
+	"a^x=b(mod M)": {
+		"prefix": "BSGS",
+		"body": "ll pw(ll b,ll k,ll M){ll R=1;while(k){if(k&1)R=(R*b)%M;b=(b*b)%M,k>>=1;}return R;}\n\n// a^x===b(mod M)\nll BSGS(ll a,ll b,ll M){\n\tif(a%M==0)return -1;if(b%M==1)return 0;\n\ta%=M,b%=M;ll q=ceil(sqrt(M));std::unordered_map<ll,ll>H;\n\tfor(ll i=0,t=b;i<=q;i++,t=(t*a)%M)H[t]=i;\n\tfor(ll i=1,f=pw(a,q,M),t=f;i<=q;i++,t=(t*f)%M)if(H.count(t))return i*q-H[t];\n\treturn -1;\n}",
+		"description": "BSGS"
+	},
+	"拓展中国剩余定理": {
+		"prefix": "CRT",
+		"body": "int ex(int a,int b,int &x,int &y){if(!b){x=1,y=0;return a;}int r=ex(b,a%b,y,x);y-=(a/b)*x;return r;}\n\nint exc(int *a,int *b){\n\t// x_i === a_i (mod b_i)\n\tint r=a[1],x,y;m=b[1];\n\tjk(i,2,n){\n\t\tint g=ex(m,b[i],x,y);\n\t\tif((r-a[i])%g)return -1;\n\t\tx=(r-a[i])/g*x%b[i];r-=m*x;m=m/g*b[i];r%=m;\n\t}\n\treturn (r+m)%m;\n}",
+		"description": "excrt"
+	},
+	"前向星存图": {
+		"prefix": "ED",
+		"body": "#define N 100010\n#define M 200010\n\nstruct E{int n,v;}e[M];\nint h[N],c;\n\nvoid ad(int u,int v){e[++c]=(E){h[u],v},h[u]=c;}",
+		"description": ""
+	},
+	"求所有质因子": {
+		"prefix": [
+			"FAC",
+			"MIL",
+			"RHO"
+		],
+		"body": "int PR[10]={2,3,5,7,11,13,17,19,23,61};ll Pr[100];int Pc;inline ll G(ll a,ll b){return b?G(b,a%b):a;}\n#define M(a,b,P) (((a)*(b)-(ll)(((long double)(a)*(b))/P+.5)*P+P)%P)\ninline ll fxp(ll s,ll n,ll P){ll a=1;for(;n;n&1?a=M(a,s,P):0,s=M(s,s,P),n>>=1);return a;}\nbool MRP(ll n){if(!(n&1)||n<2)return n==2;static ll j,r,y;for(r=~-n;!(r&1);r>>=1);for(int i = 0; i < 10; i++){if(n==PR[i])return true;if(!(n%PR[i]))return false;for(y=fxp(PR[i],j=r,n);j<~-n&&1<y&&y<~-n;y=M(y,y,n),j<<=1);if(!(y==~-n||j&1))return false;}return true;}\nll Rho(ll n){static ll x,y;x=rand()%(n-1)+1,y=M(x,x,n)+1;do{x=M(x,x,n)+1,y=M(y,y,n)+1,y=M(y,y,n)+1;}while(G(x-y+n,n)<2);return G(x-y+n,n);}\nvoid Fac(ll n,ll d=0){n>1?n&1?!MRP(n)?d=Rho(n),Fac(d),Fac(n/d),0:Pr[++Pc]=n:(Fac(n>>1),Pr[++Pc]=2):0;}\n// run Fac(n) to get Pr[1...Pc]\n// srand() in main()",
+		"description": ""
+	},
+	"枚举出边": {
+		"prefix": "FE",
+		"body": "for(int i=h[u];i;i=e[i].n){\n\t${1:int v=e[i].v;}\n}",
+		"description": ""
+	},
+	"哈希表": {
+		"prefix": "HASHTAB",
+		"body": "const int N=1e5+5,M=20050201;\nstruct E{int v,n,w;}e[M>>2];int h[M],c;\nvoid ad(int x){for(int i=h[x%M];i;i=e[i].n)if(e[i].v==x){e[i].w++;return;}e[++c]=(E){x,h[x%M],1};h[x%M]=c;}\nint query(int x){for(int i=h[x%M];i;i=e[i].n)if(e[i].v==x)return e[i].w;return 0;}",
+		"description": ""
+	},
+	"Header": {
+		"prefix": "INC",
+		"body": "/* * * * * *\n * File Name: $TM_FILENAME\n * Created by Choimoe on $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND\n * * * * * */\n\n#include<bits/stdc++.h>\n\n#define int long long\n#define jk(i,j,k) for(int i=(j);i<=(k);i++)\n#define pii std::pair<int,int>\n#define vi std::vector<int>\n\nint rd(){int da=0;register char ch=0,w=1;while(ch!='-'&&(ch>'9'||ch<'0'))ch=getchar();(ch=='-')&&(w=-1,ch=getchar());while(ch>='0'&&ch<='9'){da=da*10+ch-'0';ch=getchar();}return da*w;}\nvoid P(int v){if(v<0){putchar('-');v=-v;}if(v>9)P(v/10);putchar(v%10+'0');}\n\nint n;\n\nvoid wk(){\n\t${1:n=rd();}\n}\n\nsigned main(){\n\tint T=rd();while(T--){wk();putchar('\\n');}\n}",
+		"description": ""
+	},
+	"树剖求LCA": {
+		"prefix": "LCA",
+		"body": "int fa[N],sz[N],de[N],tp[N],sn[N];\n\nvoid df(int u,int f){\n\tde[u]=de[f]+1;sz[u]=1;fa[u]=f;\n\tfor(int i=h[u];i;i=e[i].n){\n\t\tint v=e[i].v;\n\t\tif(v==f)continue;\n\t\tdf(v,u);\n\t\tsz[u]+=sz[v];\n\t\tif(sz[v]>sz[sn[u]])sn[u]=v;\n\t}\n}\n\nvoid dfs(int u,int T){\n\ttp[u]=T;\n\tif(sn[u])dfs(sn[u],T);\n\tfor(int i=h[u];i;i=e[i].n){\n\t\tint v=e[i].v;\n\t\tif(v^sn[u]&&v^fa[u])dfs(v,v);\n\t}\n}\n\nint lca(int u,int v){\n\twhile(tp[u]^tp[v]){\n\t\tif(de[tp[u]]<de[tp[v]])std::swap(u,v);\n\t\tu=fa[tp[u]];\n\t}\n\treturn de[u]<de[v]?u:v;\n}",
+		"description": ""
+	},
+	"离散化+去重": {
+		"prefix": "LSH",
+		"body": "jk(i,1,n)b[i]=a[i];\nstd::sort(b+1,b+n+1);\nint k=std::unique(b+1,b+n+1)-(b+1);\njk(i,1,n)a[i]=std::lower_bound(b+1,b+k+1,a[i])-b;",
+		"description": ""
+	},
+	"Orz": {
+		"prefix": [
+			"ORZ",
+			"OTZ"
+		],
+		"body": "${1:id}的键盘没有退格键，因为${1:id}从来没有输错的时候\n${1:id}的键盘上只有两个键：0和1，即使这样${1:id}也没怎么用过键盘，因为${1:id}都是通过意念力操纵电脑\n据说上次比赛有人见到${1:id}在对着一部老式BB机发呆，后来据知情人士透露${1:id}是用BB机的电流脉冲模拟机器语言\n${1:id}只要瞥一眼你的桌面就知道你最近写过那些Bug\n${1:id}从来不用vim/emacs，因为cat对她来说就是一个相当够用的编辑器了\n${1:id}编程序从来不需要编译器，因为${1:id}用的是机器语言，写出来保存后可以直接运行，而且从来不用调试\n${1:id}可以从你的/dev/null中发现并破解你的root密码，所以任何Unix系统对${1:id}来说毫无安全可言\n${1:id}的计算机从来不需要重启，因为${1:id}的系统（${1:id} OS）不会出任何问题，而这个系统据说是${1:id}花费半天用机器语言写成的\n自从有了${1:id}，软件工程彻底完蛋了\n世界上最准确的电子时钟也不如${1:id}心中的时钟准确，所以NTP其实最终都是到${1:id}那里去同步的\n${1:id}从来不用编译器，她一直用自己写的图灵机\n${1:id}都是一个比特一个比特地来完成网络数据传输的，但即便如此，世界上最快的计算机也仍然跟不上${1:id}的传送速度\nIBM深蓝计算机和${1:id}下国际象棋，在${1:id}让了它128步的情况下它仍然输了，哦，对了，${1:id}只有一个“国王”",
+		"description": ""
+	},
+	"线性筛": {
+		"prefix": "PRI",
+		"body": "#define M 10000000\nint c,pr[M>>1];bool V[M+5];\nvoid PR(){jk(i,2,M){if(!V[i])pr[++c]=i;for(int j=1;j<=c&&pr[j]*i<=M;j++){V[pr[j]*i]=1;if(i%pr[j]==0)break;}}}\n",
+		"description": ""
+	},
+	"全局第k大": {
+		"prefix": "SEGk",
+		"body": "#define N 1000005\n#define M 10000000\n\nstruct Se{\n\tstruct No{int lc,rc,s;}t[N*2];\n\tint c;\n#define lc t[o].lc\n#define rc t[o].rc\n\tvoid up(int o){t[o].s=t[lc].s+t[rc].s;}\n\tvoid ins(int&o,int l,int r,int x,int d){\n\t\tif(!o)o=++c;if(x>r||x<l)return;\n\t\tif(l==r){t[o].s+=d;return;}\n\t\tint mi=(l+r)>>1;\n\t\tins(lc,l,mi,x,d);ins(rc,mi+1,r,x,d);up(o);\n\t}\n\tint que(int o,int l,int r,int L,int R){\n\t\tif(L>r||R<l)return 0;\n\t\tif(L<=l&&r<=R)return t[o].s;\n\t\tint mi=(l+r)>>1;\n\t\treturn que(lc,l,mi,L,R)+que(rc,mi+1,r,L,R);\n\t}\n\tint kth(int o,int l,int r,int k){\n\t\tif(l==r)return l;\n\t\tint mi=(l+r)>>1;\n\t\treturn k>t[lc].s?kth(rc,mi+1,r,k-t[lc].s):kth(lc,l,mi,k);\n\t}\n#undef lc\n#undef rc\n}s;\n\nint rt;",
+		"description": ""
+	},
+	"区间加区间求和": {
+		"prefix": "SEGi",
+		"body": "#define N 1000005\n\nstruct Se{\n\tstruct No{int lc,rc,sm,tg;}t[N*2];int c;\n#define lc t[o].lc\n#define rc t[o].rc\n\tvoid up(int o){t[o].sm=t[lc].sm+t[rc].sm;}\n\tvoid dow(int o,int l,int r,int mi){\n\t\tt[lc].sm+=t[o].tg*(mi-l+1);t[rc].sm+=t[o].tg*(r-mi);\n\t\tt[lc].tg+=t[o].tg;t[rc].tg+=t[o].tg;t[o].tg=0;\n\t}\n\tvoid ins(int&o,int l,int r,int x,int d){\n\t\tif(!o)o=++c;if(x>r||x<l)return;\n\t\tif(l==r){t[o].sm+=d;return;}\n\t\tint mi=(l+r)>>1;\n\t\tins(lc,l,mi,x,d);ins(rc,mi+1,r,x,d);up(o);\n\t}\n\tvoid mod(int&o,int l,int r,int L,int R,int d){\n\t\tif(!o)o=++c;if(L>r||R<l)return;\n\t\tif(L<=l&&r<=R){t[o].tg+=d;t[o].sm+=d*(r-l+1);return;}\n\t\tint mi=(l+r)>>1;dow(o,l,r,mi);\n\t\tmod(lc,l,mi,L,R,d);mod(rc,mi+1,r,L,R,d);up(o);\n\t}\n\tint que(int o,int l,int r,int L,int R){\n\t\tif(L>r||R<l)return 0;\n\t\tif(L<=l&&r<=R)return t[o].sm;\n\t\tint mi=(l+r)>>1;dow(o,l,r,mi);\n\t\tmi=que(lc,l,mi,L,R)+que(rc,mi+1,r,L,R);\n\t\treturn mi;\n\t}\n}s;\n\nint rt;",
+		"description": ""
+	},
+	"单纯形法": {
+		"prefix": "SIMPLEX",
+		"body": "#include <bits/stdc++.h>\n\n#ifdef __WIN32\n#define LLFORMAT \"I64\"\n#else\n#define LLFORMAT \"ll\"\n#endif\n\nusing namespace std;\n\n#define eps 1e-7\n\nint simplex(vector<vector<double> > &a, vector<double> &b, vector<double> &c, vector<int> &basic) {\n/*\n * Solving the LP problem of:\n *\t\tminimize c^Tx\n *\t\twith Ax=b\n *\t\tbasic[i] denotes the index of basic variables for a[i][...]\n *\tReturn:\n *\t\t-1 if solution is unbounded, 0 otherwise\n *\t\tbasic variables for Ax=b will denoted by ''basic'', the corresponding solution will be basic variables taking corresponding b value and nonbasic variables taking 0\n */\n\tint m = b.size(), n = c.size();\n\tfor (int i = 0; i < m; ++i) {\n\t\tassert(b[i] > -eps);\n\t\tint k = basic[i];\n\t\tassert(-eps < a[i][k] - 1 && a[i][k] - 1 < eps);\n\t\tfor (int l = 0; l < m; ++l) if(l != i) assert(-eps < a[l][k] && a[l][k] < eps);\n\t\tassert(-eps < c[k] && c[k] < eps);\n\t}\n\twhile(true) {\n\t\tint k = -1;\n\t\tfor (int j = 0; j < n; ++j) if(c[j] < -eps) {\n\t\t\tk = j;\n\t\t\tbreak;\n\t\t}\n\t\tif(k == -1) {\n\t\t\tdouble ans = 0;\n\t\t\tfor (int i = 0; i < m; ++i) ans += c[basic[i]] * b[i];\n\t\t\treturn 0;\n\t\t}\n\t\tint l = -1;\n\t\tfor (int i = 0; i < m; ++i) if(a[i][k] > eps) {\n\t\t\tif(l == -1) l = i;\n\t\t\telse {\n\t\t\t\tdouble ti = b[i] / a[i][k], tl = b[l] / a[l][k];\n\t\t\t\tif(ti < tl - eps || (ti < tl + eps && basic[i] < basic[l])) l = i;\n\t\t\t}\n\t\t}\n\t\tif(l == -1) return -1;\n\t\tbasic[l] = k;\n\t\tdouble tmp = 1 / a[l][k];\n\t\tfor (int j = 0; j < n; ++j) a[l][j] *= tmp;\n\t\tb[l] *= tmp;\n\t\tfor (int i = 0; i < m; ++i) if(i != l) {\n\t\t\ttmp = a[i][k];\n\t\t\tfor (int j = 0; j < n; ++j) a[i][j] -= tmp * a[l][j];\n\t\t\tb[i] -= tmp * b[l];\n\t\t}\n\t\ttmp = c[k];\n\t\tfor (int j = 0; j < n; ++j) c[j] -= tmp * a[l][j];\n\t}\n}\n\nint main() {\n\tios::sync_with_stdio(false);\n\tint n, m, T;\n\tcin >> n >> m >> T;\n\tvector<double> c(n + m, 0);\n\tfor (int i = 0; i < n; ++i) {\n\t\tcin >> c[i];\n\t\tc[i] *= -1;\n\t}\n\tauto C = c;\n\tvector<vector<double> > a(m, vector<double>(n + m, 0));\n\tvector<double> b(m);\n\tvector<int> basic(m, -1), tmp;\n\tfor (int i = 0; i < m; ++i) {\n\t\tfor (int j = 0; j < n; ++j) cin >> a[i][j];\n\t\ta[i][i + n] = 1;\n\t\tcin >> b[i];\n\t\tif(b[i] > -eps) basic[i] = i + n;\n\t\telse tmp.push_back(i);\n\t}\n\tif(!tmp.empty()) {\n\t\tsort(tmp.begin(), tmp.end(), [&](int i, int j) { return b[i] > b[j]; });\n\t\tvector<vector<double> > A;\n\t\tvector<double> B, C(n + m + 1, 0);\n\t\tvector<int> Basic;\n\t\tfor (int i: tmp) {\n\t\t\tvector<double> foo;\n\t\t\tfor (int j = 0; j < n + m; ++j) foo.push_back(-a[i][j]);\n\t\t\tfoo.push_back(1);\n\t\t\tdouble bar = -b[i];\n\t\t\tfor (int i = 0; i < A.size(); ++i) {\n\t\t\t\tdouble tmp = foo[Basic[i]];\n\t\t\t\tfor (int j = 0; j <= n + m; ++j) foo[j] -= tmp * A[i][j];\n\t\t\t\tbar -= tmp * B[i];\n\t\t\t}\n\t\t\tfor (int j = n + m; j >= 0; --j) if(-eps < foo[j] - 1 && foo[j] - 1 < eps) {\n\t\t\t\tBasic.push_back(j);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\tfor (int i = 0; i < A.size(); ++i) {\n\t\t\t\tdouble tmp = A[i][Basic.back()];\n\t\t\t\tfor (int j = 0; j <= n + m; ++j) A[i][j] -= tmp * foo[j];\n\t\t\t\tB[i] -= tmp * bar;\n\t\t\t}\n\t\t\tA.push_back(foo);\n\t\t\tB.push_back(bar);\n\t\t\tassert(bar > -eps);\n\t\t\tassert(A.size() == Basic.size());\n\t\t}\n\t\tfor (int i = 0; i < A.size(); ++i) if(Basic[i] == n + m) {\n\t\t\tfor (int j = 0; j < n + m; ++j) C[j] = -A[i][j];\n\t\t}\n\t\tfor (int i = 0; i < m; ++i) if(b[i] > -eps) {\n\t\t\tA.push_back(a[i]);\n\t\t\tA[A.size() - 1].push_back(0);\n\t\t\tB.push_back(b[i]);\n\t\t\tBasic.push_back(basic[i]);\n\t\t}\n\t\tassert(simplex(A, B, C, Basic) == 0);\n\t\tbool flag = true;\n\t\tfor (int i = 0; i < m; ++i) if(Basic[i] == n + m) {\n\t\t\tif(B[i] > eps) {\n\t\t\t\tcout << \"Infeasible\\n\";\n\t\t\t\treturn 0;\n\t\t\t}\n\t\t\tint k = -1;\n\t\t\tfor (int j = 0; j < n + m; ++j) if(A[i][j] > eps || A[i][j] < -eps) {\n\t\t\t\tk = j;\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\tif(k != -1) {\n\t\t\t\tdouble tmp = 1 / A[i][k];\n\t\t\t\tBasic[i] = k;\n\t\t\t\tfor (int j = 0; j <= n + m; ++j) A[i][j] *= tmp;\n\t\t\t\tB[i] *= tmp;\n\t\t\t\tfor (int l = 0; l < m; ++l) if(l != i) {\n\t\t\t\t\ttmp = A[l][k];\n\t\t\t\t\tfor (int j = 0; j <= n + m; ++j) A[l][j] -= tmp * A[i][j];\n\t\t\t\t\tB[l] -= tmp * B[i];\n\t\t\t\t}\n\t\t\t}\n\t\t\telse flag = false;\n\t\t\tbreak;\n\t\t}\n\t\tif(flag) {\n\t\t\tA.push_back(vector<double>(n + m, 0));\n\t\t\tA[A.size() - 1].push_back(1);\n\t\t\tB.push_back(0);\n\t\t\tBasic.push_back(n + m);\n\t\t\tfor (int i = 0; i < A.size() - 1; ++i) {\n\t\t\t\tdouble tmp = A[i].back();\n\t\t\t\tfor (int j = 0; j <= n + m; ++j) A[i][j] -= tmp * A[A.size() - 1][j];\n\t\t\t\tB[i] -= tmp * B.back();\n\t\t\t}\n\t\t}\n\t\ta = A;\n\t\tb = B;\n\t\tbasic = Basic;\n\t\tc.push_back(0);\n\t\tfor (int i = 0; i < a.size(); ++i) {\n\t\t\tdouble tmp = c[basic[i]];\n\t\t\tfor (int j = 0; j <= n + m; ++j) c[j] -= tmp * a[i][j];\n\t\t}\n\t}\n\tauto foo = simplex(a, b, c, basic);\n\tif(foo == -1) cout << \"Unbounded\" << endl;\n\telse {\n\t\tdouble res = 0;\n\t\tvector<double> ans(n, 0);\n\t\tfor (int i = 0; i < basic.size(); ++i) if(basic[i] < n) ans[basic[i]] = b[i];\n\t\tfor (int j = 0; j < n; ++j) res -= C[j] * ans[j];\n\t\tcout << setprecision(8) << res << endl;\n\t\tif(T == 1) {\n\t\t\tfor (int i = 0; i < n; ++i) cout << setprecision(8) << ans[i] << ' ';\n\t\t\tcout << endl;\n\t\t}\n\t}\n\treturn 0;\n}",
+		"description": ""
+	},
+	"基数排序": {
+		"prefix": "SORT",
+		"body": "void sort(unsigned *a,int n){\n\tunsigned *b=new unsigned[n];\n\tunsigned cnt1[256],cnt2[256],cnt3[256],cnt4[256];\n\tmemset(cnt1,0,sizeof(cnt1));memset(cnt2,0,sizeof(cnt2));memset(cnt3,0,sizeof(cnt3));memset(cnt4,0,sizeof(cnt4));\n\tfor(int i=0;i<n;i++){cnt1[a[i]&255]++;cnt2[(a[i]>>8)&255]++;cnt3[(a[i]>>16)&255]++;cnt4[a[i]>>24]++;}\n\tfor(int i=1;i<256;i++){cnt1[i]+=cnt1[i-1];cnt2[i]+=cnt2[i-1];cnt3[i]+=cnt3[i-1];cnt4[i]+=cnt4[i-1];}\n\tfor(int i=n-1;i>=0;i--)b[--cnt1[a[i]&255]]=a[i];for(int i=n-1;i>=0;i--)a[--cnt2[(b[i]>>8)&255]]=b[i];\n\tfor(int i=n-1;i>=0;i--)b[--cnt3[(a[i]>>16)&255]]=a[i];for(int i=n-1;i>=0;i--)a[--cnt4[b[i]>>24]]=b[i];\n\tdelete []b;\n}",
+		"description": ""
+	},
+	"Tarjan": {
+		"prefix": "TAR",
+		"body": "int dfn[N],low[N],s[N],st,dt;\n\nvoid tar(int u){\n\tdfn[u]=low[u]=++dt;s[++st]=u;\n\tfor(int i=h[u],x;i;i=e[i].n){\n\t\tint v=e[i].v;\n\t\tif(!dfn[v]){\n\t\t\ttar(v);\n\t\t\tlow[u]=std::min(low[u],low[v]);\n\t\t\tif(low[v]>=dfn[u]){\n\t\t\t\tsct++;\n\t\t\t\tdo x=s[st--],${1:/*Code*/};\n\t\t\t\twhile(x^v);\n\t\t\t}\n\t\t}else low[u]=std::min(low[u],dfn[v]);\n\t}\n}",
+		"description": ""
+	},
+	"线性求逆元":{
+		"prefix": "INV",
+        "body": "inv[1]=1;jk(i,2,n)inv[i]=(int)(M-M/i)*inv[M%i]%M;",
+        "description": ""
+	}
+}
