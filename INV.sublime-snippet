@@ -1,0 +1,10 @@
+<snippet>
+	<description>求逆元</description>
+	<content><![CDATA[
+inv[1]=1;jk(i,2,n)inv[i]=(int)(M-M/i)*inv[M%i]%M;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>INV</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
